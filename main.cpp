@@ -6,7 +6,7 @@
 #include <iostream>
 
 using namespace std;
-
+typedef vector<vector<int>>  board;
 //merge two elements in a 1d vector
 void vmerge(vector<int>& v, vector<int>::iterator a)
 {
@@ -33,8 +33,8 @@ class BoardHandler
 {
   private:
     int r, c;
-    vector<vector<int>> contents;
-    vector<vector<int>> empty_indeces;
+    board contents;
+    board empty_indeces;
   public:
     int gameState = 1;
     BoardHandler(int _r, int _c) : r(_r), c(_c) 
@@ -45,7 +45,7 @@ class BoardHandler
       }
 
     }
-    vector<vector<int>> getemptyindeces()
+    board getemptyindeces()
     {
       empty_indeces.erase(empty_indeces.begin(), empty_indeces.end());
       for (int i = 0; i < r; i++)
