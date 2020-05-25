@@ -33,12 +33,13 @@ class BoardHandler
 {
   private:
     int r, c;
-    vector<vector<int>> contents{{},{},{},{}};
+    vector<vector<int>> contents;
     vector<vector<int>> empty_indeces;
   public:
     int gameState = 1;
     BoardHandler(int _r, int _c) : r(_r), c(_c) 
     {
+      contents.reserve(4);
       for (int i = 0; i < r; i++) {
         contents[i].resize(c,0);
       }
@@ -51,7 +52,7 @@ class BoardHandler
       {
         for (int j = 0; j < c; j++){
           vector<int> temp {i,j};
-          if (contents[i][j] == 0) empty_indeces.push_back(temp);
+          if (contents[i][j] == 0) empty_indeces.emplace_back(temp);
         }
       }
       return empty_indeces;
@@ -63,7 +64,7 @@ class BoardHandler
     vector<int> getColumn(int index)
     {
       vector<int> output{};
-      for (int i = 0; i < 4; i++) output.push_back(contents[i][index]);
+      for (int i = 0; i < 4; i++) output.emplace_back(contents[i][index]);
       return output;
     }
     void setRow(int index, vector<int> data) 
@@ -77,10 +78,10 @@ class BoardHandler
     bool hasMerge (int r, int c)
     {
       vector<int> neighbors; 
-      if (c < 3) neighbors.push_back(contents[r][c+1]);
-      if (r < 3) neighbors.push_back(contents[r+1][c]);
-      if (c > 0) neighbors.push_back(contents[r][c-1]);
-      if (r > 0) neighbors.push_back(contents[r-1][c]);
+      if (c < 3) neighbors.emplace_back(contents[r][c+1]);
+      if (r < 3) neighbors.emplace_back(contents[r+1][c]);
+      if (c > 0) neighbors.emplace_back(contents[r][c-1]);
+      if (r > 0) neighbors.emplace_back(contents[r-1][c]);
       sort(neighbors.begin(), neighbors.end());
       for (auto i : neighbors)
       {
